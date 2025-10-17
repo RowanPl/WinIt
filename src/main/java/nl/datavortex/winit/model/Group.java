@@ -31,12 +31,13 @@ public class Group {
     @ManyToMany(mappedBy = "groups")
     private List<User> members = new ArrayList<>();
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL) // FIXED: added mappedBy
     private List<Match> matches = new ArrayList<>();
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserGroupStats> userStats = new ArrayList<>();
 
+    // Helper method to get leaderboard
     public List<UserGroupStats> getLeaderboard() {
         return userStats.stream()
                 .sorted((s1, s2) -> Long.compare(s2.getElo(), s1.getElo()))

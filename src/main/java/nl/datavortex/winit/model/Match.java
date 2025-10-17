@@ -2,8 +2,8 @@ package nl.datavortex.winit.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,11 +27,15 @@ public class Match {
     private String result;
 
     @Column(nullable = false)
-    private LocalDateTime matchDate = LocalDateTime.now();
+    private LocalDateTime matchDate = LocalDateTime.now(); // CHANGED: from String to LocalDateTime
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false)
     private Group group;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "season_id")
+    private Season season;
 
     @ManyToMany
     @JoinTable(
@@ -49,7 +53,7 @@ public class Match {
     )
     private List<User> losingUsers = new ArrayList<>();
 
-    //     Store ELO changes for historical tracking
+    // Optional: Store ELO changes for historical tracking
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EloChange> eloChanges = new ArrayList<>();
 
