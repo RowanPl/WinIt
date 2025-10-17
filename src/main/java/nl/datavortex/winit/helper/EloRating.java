@@ -2,6 +2,9 @@ package nl.datavortex.winit.helper;
 
 import java.lang.Math;
 
+
+//TODO Make this class useable within the application
+
 public class EloRating {
 
     // Function to calculate the Probability
